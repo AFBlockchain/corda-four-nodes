@@ -1,0 +1,13 @@
+# boostrapper jar
+*.jar
+
+# cordapps
+cordapps
+
+# logs
+*.log
+
+# everything in /nodes/$node except script and config files
+nodes/*/*
+!nodes/runnodes.sh
+!nodes/*/node.conf
