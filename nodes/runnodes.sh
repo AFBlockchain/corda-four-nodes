@@ -3,7 +3,8 @@
 nodes=('Notary' 'PartyA' 'PartyB' 'PartyC')
 for node in "${nodes[@]}"; do
     cd $node
-    java -jar corda.jar --no-local-shell &
+    # Always run migration code - you don't know which cordapp will change the schema
+    java -jar corda.jar run-migration-scripts --core-schemas --app-schemas; java -jar corda.jar --no-local-shell &
     cd ..
 done
 

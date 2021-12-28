@@ -8,15 +8,12 @@ RUN apt-get update && \
     apt-get clean;
 
 # Install nodes
+# This command assumes that the nodes/ directory is already populated
+# By running `java -jar corda-network-bootstrapper.jar --dir=nodes`
 COPY nodes/ .
 
-# Declare mount cordapp mount points
-VOLUME [ "./Notary/cordapps", "./PartyA/cordapps", "./PartyB/cordapps", "./PartyC/cordapps" ]
-
-# Expose all RPC ports
-EXPOSE 10010 10011 10012 10013
-# As well as ssh ports
-EXPOSE 10030 10031 10032 10033
+# Expose all RPC and ssh ports
+EXPOSE 10010-10013 10030-10033
 
 # Run nodes
 CMD ["/bin/bash", "runnodes.sh" ]
