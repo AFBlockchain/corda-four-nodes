@@ -15,8 +15,5 @@ COPY nodes/ .
 # Expose all RPC and ssh ports
 EXPOSE 10010-10013 10030-10033
 
-# Run nodes
-CMD ["/bin/bash", "runnodes.sh" ]
-
-# Keep the container running
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+# Run nodes as services
+ENTRYPOINT ["/bin/bash", "runnodes.sh" ]

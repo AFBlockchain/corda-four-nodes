@@ -9,3 +9,6 @@ for node in "${nodes[@]}"; do
 done
 
 # use `pkill -f corda.jar` to quickly shutdown all nodes
+
+# keep the process running
+tail -f /dev/null
