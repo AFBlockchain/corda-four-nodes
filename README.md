@@ -55,6 +55,14 @@ In the root directory:
 2. Bootstrap the network: `java -jar corda-network-bootstrapper-4.8.jar --dir=nodes`
 3. Build the image: `docker build .`
 
+## Pull the Image
+
+The image is published on Docker Hub. To pull it:
+
+```sh
+docker pull mcxd/corda-four-nodes:$version
+```
+
 ## Image Usage
 
 The original intent for building this image is to simplify dockerized integration tests using *TestContainers*. However, as said above, it can also serve to cleanly deploy test network.
