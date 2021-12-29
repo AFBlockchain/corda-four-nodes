@@ -29,3 +29,7 @@ dependencies {
     testImplementation 'org.testcontainers:testcontainers:1.16.2'
     testImplementation 'pl.pragmatists:JUnitParams:1.1.1'
 }
+
+test {
+    testLogging.showStandardStreams = true
+}

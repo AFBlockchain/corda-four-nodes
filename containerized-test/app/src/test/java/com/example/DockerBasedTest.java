@@ -53,9 +53,7 @@ public class DockerBasedTest {
     public void canConnectToNodes(String name) {
         logger.info("Connecting to " + name);
 
-        int port = portMap.get(name);
-        CordaRPCOps proxy = getProxy(port);
-
+        CordaRPCOps proxy = getProxy(name);
         String nodeLegalName = proxy.nodeInfo().getLegalIdentities().get(0).getName().toString();
         logger.info("Legal name: " + nodeLegalName);
 
@@ -63,7 +61,10 @@ public class DockerBasedTest {
     }
 
 
-    private CordaRPCOps getProxy(int port) {
+    private CordaRPCOps getProxy(String name) {
+        int port = portMap.get(name);
+        port = network.getMappedPort(port); // ports are mapped!
+
         NetworkHostAndPort networkHostAndPort = new NetworkHostAndPort(host, port);
         CordaRPCClient client = new CordaRPCClient(networkHostAndPort);
         CordaRPCConnection connection = client.start("user1", "test");
