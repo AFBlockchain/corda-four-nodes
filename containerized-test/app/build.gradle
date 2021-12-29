@@ -33,3 +33,5 @@ dependencies {
 test {
     testLogging.showStandardStreams = true
 }
+
+mainClassName='com.example.TestConnection'
