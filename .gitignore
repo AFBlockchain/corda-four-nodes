@@ -1,8 +1,7 @@
-# boostrapper jar
+# jars
 *.jar
-
-# cordapps
-cordapps
+# include cordapp jars
+!cordapps/*.jar
 
 # logs
 *.log
@@ -11,3 +10,6 @@ cordapps
 nodes/*/*
 !nodes/runnodes.sh
 !nodes/*/node.conf
+
+# customized set-up script
+env.sh

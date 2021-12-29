@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# source a setup script to make things easy
+
 docker run -d \
 -v $BASE_DIR/cordapps:/nodes/Notary/cordapps \
 -v $BASE_DIR/cordapps:/nodes/PartyA/cordapps \
