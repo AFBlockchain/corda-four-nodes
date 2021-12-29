@@ -23,28 +23,24 @@ public class DockerBasedTest {
     @ClassRule
     @SuppressWarnings("rawtypes")
     public static GenericContainer network = new GenericContainer(DockerImageName.parse(IMAGE_NAME+":"+IMAGE_VERSION))
-            .withExposedPorts(10010, 10011, 10012, 10013)
+            .withExposedPorts(10010)
             .withStartupTimeout(Duration.ofSeconds(180));
 
     private static String host;
     private static Integer port_n;
-    private static Integer port_a;
-    private static Integer port_b;
-    private static Integer port_c;
 
     @Before
     public void setUp() {
         host = network.getHost();
         port_n = network.getMappedPort(10010);
-        port_a = network.getMappedPort(10011);
-        port_b = network.getMappedPort(10012);
-        port_c = network.getMappedPort(10013);
     }
 
     @Test
     public void notaryConnectionTest() {
-        String address = host + ":" + port_n;
-        CordaRPCClient client = new CordaRPCClient(NetworkHostAndPort.parse(address));
+        NetworkHostAndPort networkHostAndPort = new NetworkHostAndPort(host, port_n);
+        logger.info("Address: " + networkHostAndPort);
+
+        CordaRPCClient client = new CordaRPCClient(networkHostAndPort);
         CordaRPCConnection connection = client.start("user1", "test");
         CordaRPCOps proxy = connection.getProxy();
 
