@@ -1,5 +1,7 @@
 # Four Corda Nodes Container
 
+![Docker Image Version (latest semver)](https://img.shields.io/docker/v/mcxd/corda-four-nodes)
+
 The container image installed four Corda nodes in a *single* container to simplify the usage. It is a cleaner way than running `Cordform(:deployNodes)` task and `runnodes.sh` script to start a local Corda test network.
 
 ## Project Structure
