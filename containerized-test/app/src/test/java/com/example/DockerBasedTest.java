@@ -22,11 +22,11 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.Utils.*;
+
 @RunWith(JUnitParamsRunner.class)
 public class DockerBasedTest {
     private static final Logger logger = LoggerFactory.getLogger(DockerBasedTest.class);
-    public static final String IMAGE_NAME = "corda-four-nodes";
-    public static final String IMAGE_VERSION = "0.1.1";
 
     @ClassRule
     @SuppressWarnings("rawtypes")
@@ -42,10 +42,10 @@ public class DockerBasedTest {
         host = network.getHost();
         portMap = new HashMap<>();
 
-        portMap.put("Notary", 10010);
-        portMap.put("PartyA", 10011);
-        portMap.put("PartyB", 10012);
-        portMap.put("PartyC", 10013);
+        portMap.put("Notary", network.getMappedPort(10010));
+        portMap.put("PartyA", network.getMappedPort(10011));
+        portMap.put("PartyB", network.getMappedPort(10012));
+        portMap.put("PartyC", network.getMappedPort(10013));
     }
 
     @Test
@@ -53,22 +53,10 @@ public class DockerBasedTest {
     public void canConnectToNodes(String name) {
         logger.info("Connecting to " + name);
 
-        CordaRPCOps proxy = getProxy(name);
+        CordaRPCOps proxy = getProxy(host, portMap.get(name));
         String nodeLegalName = proxy.nodeInfo().getLegalIdentities().get(0).getName().toString();
         logger.info("Legal name: " + nodeLegalName);
 
         assert  nodeLegalName.contains(name);
-    }
-
-
-    private CordaRPCOps getProxy(String name) {
-        int port = portMap.get(name);
-        port = network.getMappedPort(port); // ports are mapped!
-
-        NetworkHostAndPort networkHostAndPort = new NetworkHostAndPort(host, port);
-        CordaRPCClient client = new CordaRPCClient(networkHostAndPort);
-        CordaRPCConnection connection = client.start("user1", "test");
-
-        return connection.getProxy();
     }
 }

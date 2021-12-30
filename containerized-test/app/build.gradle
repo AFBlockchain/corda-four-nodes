@@ -28,6 +28,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.testcontainers:testcontainers:1.16.2'
     testImplementation 'pl.pragmatists:JUnitParams:1.1.1'
+    testImplementation fileTree('../libs') { include '*.jar' }
 }
 
 test {
