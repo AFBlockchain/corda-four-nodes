@@ -54,8 +54,10 @@ In step 4, the started container will run the script defined [here](./nodes/runn
 In the root directory:
 
 1. Download network-bootstrapper: `./scripts/pull-nb.sh`
-2. Bootstrap the network: `java -jar corda-network-bootstrapper-4.8.jar --dir=nodes`
-3. Build the image: `docker build .`
+2. Bootstrap the network: `java -jar corda-network-bootstrapper-4.7.7-RC01.jar --dir=nodes`
+3. Replace the `corda.jar` provided by the bootstrapper with the one in `./corda` folder to apply the log4j2 vulnerability fix
+4. Download preferred java to `./java` (e.g., jdk-8u321-linux-x64.tar.gz)
+5. Build the image: `docker build .`
 
 ## Pull the Image
 
@@ -72,6 +74,8 @@ The original intent for building this image is to simplify dockerized integratio
 For the latter usage, a [handy script](scripts/docker-run.sh) is provided. It takes care of mounting the cordapp volume and exposing necessary ports.
 
 Note that the script uses two exported environment variables: `IMAGE_NAME` and `BASE_DIR` (the directory that contains your `cordapps` **directory**). When the above two variables are properly set, start up the container via `./scripts/docker-run.sh`
+
+The minimum platform version is 9 (OS 4.7.x)
 
 For the default cordapp (the *yo-cordapp*), you can interact with the container as such:
 
